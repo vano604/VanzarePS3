@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PlayStation 3 Second Hand</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
+
+body{
+background:linear-gradient(135deg,#020617,#0f172a);
+color:white;
+}
+
+/* HEADER */
+header{
+text-align:center;
+padding:20px;
+font-size:28px;
+background:#020617;
+}
+
+/* CONTAINER */
+.container{
+max-width:1100px;
+margin:auto;
+padding:20px;
+}
+
+/* CARD */
+.card{
+background:#0f172a;
+padding:20px;
+border-radius:15px;
+box-shadow:0 0 25px rgba(0,0,0,0.6);
+}
+
+/* GRID */
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:20px;
+}
+
+/* GALLERY */
+.main-img{
+width:100%;
+border-radius:10px;
+}
+
+.thumbs{
+display:flex;
+gap:10px;
+margin-top:10px;
+}
+
+.thumbs img{
+width:80px;
+border-radius:8px;
+cursor:pointer;
+opacity:0.7;
+}
+
+.thumbs img:hover{
+opacity:1;
+}
+
+/* TEXT */
+h2{color:#38bdf8;margin-top:10px;}
+
+ul{margin:10px 0;line-height:1.6;}
+
+.price{
+font-size:26px;
+color:#22c55e;
+margin:15px 0;
+}
+
+/* BUTTON */
+.btn{
+display:inline-block;
+background:#38bdf8;
+color:black;
+padding:12px 20px;
+border-radius:10px;
+text-decoration:none;
+font-weight:bold;
+cursor:pointer;
+}
+
+/* CONTACT */
+.contact{
+margin-top:20px;
+background:#020617;
+padding:15px;
+border-radius:10px;
+}
+
+/* MODAL */
+.modal{
+display:none;
+position:fixed;
+top:0;left:0;
+width:100%;height:100%;
+background:rgba(0,0,0,0.8);
+justify-content:center;
+align-items:center;
+}
+
+.modal-box{
+background:#0f172a;
+padding:20px;
+border-radius:15px;
+width:90%;
+max-width:400px;
+}
+
+input, textarea{
+width:100%;
+margin:8px 0;
+padding:10px;
+border:none;
+border-radius:8px;
+}
+
+button{
+width:100%;
+padding:10px;
+margin-top:5px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+}
+
+.send{background:#22c55e;}
+.close{background:#1e293b;color:white;}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+.grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+
+<body>
+
+<header>PlayStation 3 Second Hand la vânzare...</header>
+
+<div class="container">
+<div class="card">
+
+<div class="grid">
+
+<!-- GALLERY -->
+<div>
+<img id="mainImage" src="img/Sony-PlayStation-3-2001A-wController-L.jpg" class="main-img">
+
+<div class="thumbs">
+<img src="" onclick="changeImg(this)">
+<img src="" onclick="changeImg(this)">
+<img src="" onclick="changeImg(this)">
+</div>
+</div>
+
+<!-- INFO -->
+<div>
+
+<h2>Descriere</h2>
+<p>Consolă PlayStation 3 second hand, în stare foarte bună.</p>
+
+<h2>Detalii</h2>
+<ul>
+<li>Model: PlayStation 3</li>
+<li>Stare: second hand</li>
+<li>Memorie: 320GB</li>
+<li>1 controller original</li>
+<li>Cablu HDMI + alimentare</li>
+<li>Jocuri incluse (opțional)</li>
+</ul>
+
+<div class="price">1500 lei</div>
+
+<a class="btn" onclick="openModal()">Cumpără acum</a>
+
+<div class="contact">
+<h2>Contact</h2>
+<p>Email: exemplu@mail.com</p>
+<p>Locație: Moldova</p>
+</div>
+
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- MODAL -->
+<div id="modal" class="modal">
+<div class="modal-box">
+
+<h2>Comandă</h2>
+
+<input id="name" placeholder="Nume">
+<input id="phone" placeholder="Telefon">
+<textarea id="msg" placeholder="Comentariu"></textarea>
+
+<button class="send" onclick="send()">Trimite</button>
+<button class="close" onclick="closeModal()">Închide</button>
+
+</div>
+</div>
+
+<script>
+function changeImg(img){
+document.getElementById("mainImage").src = img.src;
+}
+
+function openModal(){
+document.getElementById("modal").style.display="flex";
+}
+
+function closeModal(){
+document.getElementById("modal").style.display="none";
+}
+
+function send(){
+const name=document.getElementById("name").value;
+const phone=document.getElementById("phone").value;
+const msg=document.getElementById("msg").value;
+
+if(!name||!phone){
+alert("Completează numele și telefonul!");
+return;
+}
+
+// 🔥 ВСТАВЬ СЮДА СВОИ ДАННЫЕ
+const token="8513890182:AAEosVy-Q3OrHaUMZObl6w24PS8Xhc5vAlc";
+const chat_id="5631587994";
+
+const text=
+`🛒 Comandă nouă:%0A
+👤 Nume: ${name}%0A
+📞 Telefon: ${phone}%0A
+💬 Mesaj: ${msg}%0A
+📅 Data: ${new Date().toLocaleString()}`;
+
+fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${text}`);
+
+alert("Comanda a fost trimisă!");
+closeModal();
+}
+</script>
+
+</body>
+</html>
